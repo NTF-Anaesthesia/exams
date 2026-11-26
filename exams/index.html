@@ -505,8 +505,8 @@ const exams = {
           },
           {
             key: "marking-machine",
-            name: "SAQ Marking Machine",
-            url: "https://chatgpt.com/g/g-684fe87db1448191ba7b47774d50783c-mmed-saq-marking-machine"
+            name: "SAQ Marker",
+            url: "/saq/"
           }
         ]
       },
@@ -662,7 +662,7 @@ function renderCalendar() {
       <span class="cal-sess-dur">${escapeHtml(sess.dur)}</span>
     </div>
     ${essaysHtml}
-    <a class="cal-gpt-link" href="https://chatgpt.com/g/g-684fe87db1448191ba7b47774d50783c-mmed-saq-marking-machine" target="_blank" rel="noopener">Submit to SAQ Marking Machine</a>
+    <a class="cal-gpt-link" href="/saq/" target="_blank" rel="noopener">Mark it with the SAQ Marker</a>
   </div>`;
 
   return `<div class="cal-wrap">${stripHtml}${weekHdr}${dayGrid}${panel}</div>`;
