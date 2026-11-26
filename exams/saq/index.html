@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SAQ marker — NTF Anaesthesia</title>
+<meta name="description" content="Practise MMed Anaesthesia Part B short-answer questions and get examiner-style feedback.">
+<link rel="canonical" href="https://exams.anantf.com/saq/">
+<link rel="stylesheet" href="../assets/navigation.css?v=20261007-framing">
+<link rel="stylesheet" href="../assets/site-shell.css?v=20261007-framing">
+<link rel="stylesheet" href="../assets/header-nav.css?v=20261008">
+<link rel="stylesheet" href="../saq/saq.css?v=20261126">
+<script defer src="../assets/navigation.js?v=20261008"></script>
+<script type="module" src="saq.js?v=20261126"></script>
+</head>
+<body data-page="saq">
+<header class="ntf-header"><div class="ntf-header-inner"><a class="ntf-logo" href="https://anantf.com/" aria-label="NTF Anaesthesia home"><img src="../ana-ntf-logo.svg?v=clean" alt="NTF Anaesthesia" width="229" height="120"></a><button class="ntf-mobile-toggle" type="button" aria-expanded="false" aria-controls="ntf-main-nav">Menu <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button><nav class="ntf-nav" id="ntf-main-nav" aria-label="Main navigation"><a href="https://anantf.com/airway.html">Airway</a><a href="https://anantf.com/regional.html">Regional Anaesthesia</a><a href="https://anantf.com/pocus/">POCUS</a><a href="https://anantf.com/bis/">pEEG</a><a href="../" aria-current="page">Exam Prep</a></nav><a class="ntf-contact" href="mailto:contact@anantf.com" aria-label="Email NTF Anaesthesia" title="Email NTF Anaesthesia"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg></a></div></header>
+<main class="site-container saq" id="main">
+<nav class="essay-breadcrumb" aria-label="Breadcrumb"><a href="../">MMed exam preparation</a><span aria-hidden="true">/</span><a href="../essays.html">Sample essays</a><span aria-hidden="true">/</span><span aria-current="page">SAQ marker</span></nav>
+<div class="saq-hero">
+  <div>
+    <p class="page-kicker">Part B · practice marking</p>
+    <h1>SAQ marker</h1>
+    <p class="essay-intro">Write a 15-minute answer, then get examiner-style comments and a score on the MMed 3–8 scale. AI marking for practice only: it can be wrong.</p>
+  </div>
+  <div class="saq-meter" id="meter" hidden><strong id="meter-n">–</strong><span id="meter-t">marks left today</span></div>
+</div>
+<div id="notice" class="saq-notice" hidden></div>
+
+<section class="saq-panel saq-code" id="p-code" hidden>
+  <h2>Access code</h2>
+  <p>Enter the access code from your programme. You only need to do this once on this device.</p>
+  <form id="code-form">
+    <label for="code">Code</label>
+    <input id="code" type="password" autocomplete="current-password" required>
+    <div class="saq-row"><button class="saq-btn" type="submit">Continue</button></div>
+    <p class="saq-err" id="code-err" role="alert"></p>
+  </form>
+</section>
+
+<section class="saq-panel saq-pick" id="p-pick" hidden>
+  <h2>Pick a question</h2>
+  <div class="saq-own" id="own-wrap"><button class="saq-btn ghost" type="button" id="own-btn">Own question: paste a stem</button></div>
+  <div class="essay-topics" id="topics"></div>
+</section>
+
+<section class="saq-panel" id="p-write" hidden>
+  <div class="saq-row" style="margin:0 0 16px"><button class="saq-btn ghost" type="button" data-go="pick">← Questions</button></div>
+  <div id="stem-view"><p class="saq-stem-title" id="stem-title"></p><div class="saq-stem" id="stem"></div></div>
+  <div id="stem-edit" hidden>
+    <label for="own-stem">Question stem</label>
+    <textarea id="own-stem" style="min-height:120px" placeholder="Paste the full question, with the parts and percentages."></textarea>
+    <p></p>
+  </div>
+  <div class="saq-bar">
+    <span><button class="saq-btn ghost" type="button" id="timer-btn">Start 15-min timer</button> <span class="saq-timer" id="timer" hidden>15:00</span></span>
+    <span id="saved">Saved on this device</span>
+  </div>
+  <label for="answer">Your answer</label>
+  <textarea id="answer" spellcheck="false" placeholder="Write as you would in the exam: headings, points, then the reasoning in each point."></textarea>
+  <div class="saq-row">
+    <button class="saq-btn" type="button" id="mark-btn">Mark my answer</button>
+    <span class="saq-small" id="count">0 words</span>
+  </div>
+  <p class="saq-err" id="write-err" role="alert"></p>
+</section>
+
+<section class="saq-panel" id="p-result" hidden>
+  <div class="saq-row" style="margin:0 0 16px"><button class="saq-btn ghost" type="button" data-go="write">← Edit answer</button><button class="saq-btn ghost" type="button" data-go="pick">Another question</button></div>
+  <h2 id="result-title">Marking</h2>
+  <div id="score-line"></div>
+  <div class="saq-out" id="out"></div>
+  <p class="saq-err" id="result-err" role="alert"></p>
+  <div class="saq-row" id="model-row">
+    <a class="saq-btn ghost" id="model-pdf" target="_blank" rel="noopener" hidden>Show model answer (PDF)</a>
+    <button class="saq-btn ghost" type="button" id="model-btn" hidden>Show model answer (uses 1 mark)</button>
+  </div>
+  <div id="model-wrap" hidden><h2 style="margin-top:28px">Model answer</h2><div class="saq-out" id="model-out"></div></div>
+</section>
+
+<p class="essay-use-note">For education and personal study. Your answer is sent to the AI to be marked and is not stored; only a count of marks and scores is kept.</p>
+</main>
+<footer class="ntf-footer"><div class="ntf-footer-inner"><div class="ntf-footer-identity"><span class="ntf-copyright">© 2026 NTF Anaesthesia. All rights reserved unless otherwise stated.</span></div></div></footer>
+</body>
+</html>

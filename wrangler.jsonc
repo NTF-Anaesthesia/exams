@@ -1,6 +1,7 @@
 // Cloudflare Workers config. The Worker (worker/sites.js) serves this repo's files and decides which folder each
 // address may see (worker/routes.js). No data and no secrets in this file: settings the Worker needs are set in the
-// Cloudflare dashboard (keep_vars keeps them across deploys).
+// Cloudflare dashboard (keep_vars keeps them across deploys). The SAQ marker (worker/saq.js) also needs the Worker
+// secrets ANTHROPIC_API_KEY and ADMIN_CODE, set with `wrangler secret put`.
 {
   "name": "exams",
   "main": "worker/sites.js",
@@ -18,5 +19,7 @@
   "preview_urls": false,
   "workers_dev": false,
   "keep_vars": true,
+  // SAQ marker: settings, prompt material and usage counts (never answers). Schema in migrations/.
+  "d1_databases": [{ "binding": "DB", "database_name": "exams-saq", "database_id": "513bbd69-0f1c-4e2e-9efa-1adb02081bc6" }],
   "routes": [{ "pattern": "exams.anantf.com", "custom_domain": true }]
 }
