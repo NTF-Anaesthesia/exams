@@ -1,14 +1,18 @@
 // The Cloudflare Worker for this repo's addresses. It serves the repo's files (the static assets, bound as ASSETS)
-// and decides which folder an address may see (routes.js). No data, no storage: just files.
+// and decides which folder an address may see (routes.js). The one exception is /api/ (the SAQ marker, saq.js), which
+// is answered first, before the GET/HEAD-only rule and the folder lookup; every other address is just files.
 // wrangler.jsonc: "run_worker_first" sends every request here.
 import { resolve } from './routes.js';
+import { handleApi } from './saq.js';
 
 const NOINDEX = 'noindex, nofollow';
 
 export default {
-  async fetch(request, env) {
-    if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.pathname === '/api' || url.pathname.startsWith('/api/'))
+      return resolve(url.hostname, '/').notFound ? notFound() : handleApi(request, env, ctx);
+    if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
     const r = resolve(url.hostname, url.pathname);
     if (r.redirect) return redirect(url, r.redirect);
     if (r.notFound) return notFound();

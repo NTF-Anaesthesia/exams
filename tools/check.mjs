@@ -3,6 +3,7 @@
 // 2. Every PDF the pages name under reference/ exists.
 // 3. wrangler.jsonc keeps preview links and the workers.dev address off.
 // 4. The Worker's tests pass.
+// 5. The SAQ marker's prompt material (model answer library, rules) is never committed here: it lives in D1.
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -11,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
 const fail = m => errors.push(m);
-const files = ['exams/index.html', 'exams/essays.html', ...fs.readdirSync(path.join(ROOT, 'exams/assets')).filter(f => f.endsWith('.css')).map(f => `exams/assets/${f}`)];
+const files = ['exams/index.html', 'exams/essays.html', 'exams/saq/index.html', 'exams/saq/admin/index.html', 'exams/saq/saq.css', ...fs.readdirSync(path.join(ROOT, 'exams/assets')).filter(f => f.endsWith('.css')).map(f => `exams/assets/${f}`)];
 
 for (const f of files) {
   const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
@@ -29,6 +30,13 @@ for (const m of page.matchAll(/reference\/([\w.-]+\.pdf)/g))
 const wr = fs.readFileSync(path.join(ROOT, 'wrangler.jsonc'), 'utf8');
 if (!/"preview_urls":\s*false/.test(wr)) fail('wrangler.jsonc: preview_urls must be false');
 if (!/"workers_dev":\s*false/.test(wr)) fail('wrangler.jsonc: workers_dev must be false');
+
+const walk = d => fs.readdirSync(path.join(ROOT, d), { withFileTypes: true }).flatMap(e =>
+  e.isDirectory() ? (['.git', 'node_modules', '.wrangler', 'reference', 'fonts'].includes(e.name) ? [] : walk(path.join(d, e.name))) : [path.join(d, e.name)]);
+for (const f of walk('.').filter(f => /\.(md|txt|json|js|mjs|sql|html)$/.test(f))) {
+  if (/model_answer_library/i.test(f) || /^## Essay \d+:/m.test(fs.readFileSync(path.join(ROOT, f), 'utf8')))
+    fail(`${f}: looks like the SAQ model answer library, which must stay out of this public repo`);
+}
 
 try { execFileSync('node', ['--test', ...fs.readdirSync(path.join(ROOT, 'worker/test')).map(f => `worker/test/${f}`)], { cwd: ROOT, stdio: 'pipe' }); }
 catch (e) { fail(`worker tests failed:\n${e.stdout}${e.stderr}`); }

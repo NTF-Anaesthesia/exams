@@ -28,3 +28,10 @@ test('every folder in SITES exists', () => {
     for (const f of [s.root, ...Object.values(s.prefixes || {})].filter(Boolean))
       assert.ok(fs.existsSync(new URL(`../../${f}`, import.meta.url)), `${host}: ${f}`);
 });
+
+test('the SAQ pages are plain files in the folder', () => {
+  assert.deepEqual(resolve('exams.anantf.com', '/saq/'), { file: 'exams/saq/' });
+  assert.deepEqual(resolve('exams.anantf.com', '/saq/admin/'), { file: 'exams/saq/admin/' });
+  assert.ok(fs.existsSync(new URL('../../exams/saq/index.html', import.meta.url)));
+  assert.ok(fs.existsSync(new URL('../../exams/saq/admin/index.html', import.meta.url)));
+});

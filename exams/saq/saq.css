@@ -1,0 +1,72 @@
+/* SAQ marker and its admin page. Builds on assets/site-shell.css (header, footer, breadcrumb, essay list look). */
+@font-face{font-family:'NTF Serif';src:url('../fonts/fraunces-roman.woff2') format('woff2');font-display:swap;font-weight:400 600}
+body[data-page=saq]{margin:0;background:#f7f5ef;color:#272722;font:15px/1.7 Inter,Arial,sans-serif}
+.saq{padding-bottom:56px}
+.saq h1{font:400 clamp(40px,5vw,62px)/1.08 'NTF Serif',Georgia,serif;letter-spacing:-.045em;margin:12px 0 14px}
+.saq h2{font:400 25px/1.3 'NTF Serif',Georgia,serif;letter-spacing:-.025em;margin:0 0 12px}
+.saq-hero{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:end;padding-block:28px;border-bottom:1px solid #d7d2c8}
+.saq-hero .page-kicker{font:10px/1.65 Inter,Arial,sans-serif;letter-spacing:.1em;color:#68665f;text-transform:uppercase;margin:0}
+.saq-hero p.essay-intro{max-width:52ch}
+.saq-meter{justify-self:end;text-align:right;font-size:13px;color:#68665f}
+.saq-meter strong{display:block;font:400 34px/1.1 'NTF Serif',Georgia,serif;color:#272722;letter-spacing:-.03em}
+.saq-notice{margin:18px 0 0;padding:12px 16px;border-left:3px solid #a8742c;background:#f1ebdd;font-size:13px}
+.saq-notice.stop{border-color:#8d2f2a;background:#f3e3df}
+.saq-panel{padding-top:28px}
+.saq [hidden],.saq-panel[hidden]{display:none!important}
+.saq label{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#68665f;margin:0 0 6px}
+.saq input[type=text],.saq input[type=password],.saq input[type=number],.saq select,.saq textarea{box-sizing:border-box;width:100%;font:15px/1.6 Inter,Arial,sans-serif;color:#272722;background:#fffdf8;border:1px solid #c9c2b4;border-radius:4px;padding:10px 12px}
+.saq textarea{min-height:420px;resize:vertical;font-size:15px;line-height:1.65}
+.saq input:focus,.saq textarea:focus,.saq select:focus{outline:2px solid #633d3c;outline-offset:1px}
+.saq-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border:1px solid #633d3c;border-radius:4px;background:#633d3c;color:#fff;font:500 14px/1 Inter,Arial,sans-serif;cursor:pointer;text-decoration:none}
+.saq-btn:hover{background:#4f302f}
+.saq-btn.ghost{background:transparent;color:#633d3c}
+.saq-btn.ghost:hover{background:#eeece5}
+.saq-btn[disabled]{opacity:.5;cursor:not-allowed}
+.saq-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.saq-code{max-width:420px}
+.saq-code p{color:#68665f;font-size:14px}
+.saq-err{color:#8d2f2a;font-size:13px;min-height:1.5em;margin:8px 0 0}
+.saq-pick .essay-topics{padding-top:8px}
+.saq-pick button.essay-title-link{width:100%;background:none;border:0;text-align:left;cursor:pointer;font:inherit;font-size:14px}
+.saq-own{margin:0 0 8px;padding:16px 0;border-bottom:1px solid #d7d2c8}
+.saq-stem{white-space:pre-line;background:#fffdf8;border:1px solid #d7d2c8;border-radius:4px;padding:14px 16px;margin:0 0 18px;font-size:15px}
+.saq-stem-title{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#68665f;margin:0 0 6px}
+.saq-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center;margin:0 0 10px;font-size:13px;color:#68665f}
+.saq-timer{font:500 20px/1 'JetBrains Mono',ui-monospace,monospace;color:#272722}
+.saq-timer.over{color:#8d2f2a}
+.saq-out{background:#fffdf8;border:1px solid #d7d2c8;border-radius:4px;padding:6px 20px 18px;font-size:15px;line-height:1.7;overflow-wrap:anywhere}
+.saq-out h3{font:400 21px/1.3 'NTF Serif',Georgia,serif;margin:20px 0 8px}
+.saq-out p{margin:0 0 8px}
+.saq-out ul{margin:0 0 8px;padding-left:22px}
+.saq-out .ex{background:#f6e3b8;color:#5a3a12;font-style:italic;padding:1px 4px;border-radius:3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.saq-score{display:inline-block;font:500 18px/1.4 Inter,Arial,sans-serif;background:#272722;color:#fff;padding:6px 14px;border-radius:4px}
+.saq-wait{color:#68665f;font-size:14px;padding:14px 0}
+.saq-wait::after{content:'';display:inline-block;width:1em;animation:saqdots 1.2s steps(4) infinite;overflow:hidden;vertical-align:bottom;white-space:nowrap}
+@keyframes saqdots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
+.saq-small{font-size:12px;color:#68665f}
+/* admin */
+.saq-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 24px}
+.saq-tile{background:#fffdf8;border:1px solid #d7d2c8;border-radius:4px;padding:14px 16px}
+.saq-tile b{display:block;font:400 28px/1.15 'NTF Serif',Georgia,serif;letter-spacing:-.02em}
+.saq-tile span{font-size:12px;color:#68665f}
+.saq-meterbar{height:6px;background:#e6e1d6;border-radius:3px;margin-top:8px;overflow:hidden}
+.saq-meterbar i{display:block;height:100%;background:#633d3c}
+.saq-grid2{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.saq-form{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+.saq-form .wide{grid-column:1/-1}
+.saq-check{display:flex!important;align-items:center;gap:10px;text-transform:none!important;letter-spacing:0!important;font-size:14px!important;color:#272722!important;min-height:44px}
+.saq-check input{width:20px;height:20px;accent-color:#633d3c}
+.saq-chart{width:100%;height:auto;display:block}
+.saq-table{width:100%;border-collapse:collapse;font-size:13px}
+.saq-table td,.saq-table th{border-bottom:1px solid #d7d2c8;padding:6px 4px;text-align:left}
+.saq-table td.n,.saq-table th.n{text-align:right;font-variant-numeric:tabular-nums}
+.saq-card{margin-bottom:28px}
+@media (max-width:860px){
+  .saq-hero{grid-template-columns:1fr;gap:12px;padding-block:22px}
+  .saq-meter{justify-self:start;text-align:left}
+  .saq h1{font-size:42px}
+  .saq textarea{min-height:340px}
+  .saq-tiles{grid-template-columns:1fr 1fr}
+  .saq-grid2,.saq-form{grid-template-columns:1fr}
+  .saq-out{padding:4px 14px 14px}
+}

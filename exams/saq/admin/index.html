@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SAQ marker admin — NTF Anaesthesia</title>
+<meta name="description" content="Settings and usage for the SAQ marker.">
+<link rel="canonical" href="https://exams.anantf.com/saq/admin/">
+<link rel="stylesheet" href="../../assets/navigation.css?v=20261007-framing">
+<link rel="stylesheet" href="../../assets/site-shell.css?v=20261007-framing">
+<link rel="stylesheet" href="../../assets/header-nav.css?v=20261008">
+<link rel="stylesheet" href="../../saq/saq.css?v=20261126">
+<script defer src="../../assets/navigation.js?v=20261008"></script>
+<script type="module" src="admin.js?v=20261126"></script>
+</head>
+<body data-page="saq">
+<header class="ntf-header"><div class="ntf-header-inner"><a class="ntf-logo" href="https://anantf.com/" aria-label="NTF Anaesthesia home"><img src="../../ana-ntf-logo.svg?v=clean" alt="NTF Anaesthesia" width="229" height="120"></a><button class="ntf-mobile-toggle" type="button" aria-expanded="false" aria-controls="ntf-main-nav">Menu <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button><nav class="ntf-nav" id="ntf-main-nav" aria-label="Main navigation"><a href="https://anantf.com/airway.html">Airway</a><a href="https://anantf.com/regional.html">Regional Anaesthesia</a><a href="https://anantf.com/pocus/">POCUS</a><a href="https://anantf.com/bis/">pEEG</a><a href="../../" aria-current="page">Exam Prep</a></nav><a class="ntf-contact" href="mailto:contact@anantf.com" aria-label="Email NTF Anaesthesia" title="Email NTF Anaesthesia"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg></a></div></header>
+<main class="site-container saq" id="main">
+<nav class="essay-breadcrumb" aria-label="Breadcrumb"><a href="../../">MMed exam preparation</a><span aria-hidden="true">/</span><a href="../">SAQ marker</a><span aria-hidden="true">/</span><span aria-current="page">Admin</span></nav>
+<div class="saq-hero">
+  <div><p class="page-kicker">For the maintainers</p><h1>SAQ marker admin</h1></div>
+  <div class="saq-meter"><button class="saq-btn ghost" type="button" id="signout" hidden>Sign out</button></div>
+</div>
+<div id="notice" class="saq-notice" hidden></div>
+
+<section class="saq-panel saq-code" id="p-login" hidden>
+  <h2>Sign in</h2>
+  <form id="login-form">
+    <label for="code">Admin code</label>
+    <input id="code" type="password" autocomplete="current-password" required>
+    <div class="saq-row"><button class="saq-btn" type="submit">Sign in</button></div>
+    <p class="saq-err" id="login-err" role="alert"></p>
+  </form>
+</section>
+
+<section class="saq-panel" id="p-dash" hidden>
+  <h2>This month <span class="saq-small" id="period"></span></h2>
+  <div class="saq-tiles" id="tiles"></div>
+  <div class="saq-grid2">
+    <div>
+      <div class="saq-card"><h2>Marks per day</h2><div id="chart-days"></div><p class="saq-small">Last 30 days (SGT).</p></div>
+      <div class="saq-card"><h2>Score spread</h2><div id="chart-scores"></div><p class="saq-small">Raw scores, all time.</p></div>
+      <div class="saq-card"><h2>Per essay</h2><table class="saq-table" id="essays"></table></div>
+    </div>
+    <div>
+      <div class="saq-card">
+        <h2>Settings</h2>
+        <form class="saq-form" id="settings">
+          <div class="wide"><label class="saq-check"><input type="checkbox" name="enabled"> Marker on</label></div>
+          <div class="wide"><label for="s-message">Message when off</label><input id="s-message" name="message" type="text" maxlength="300" placeholder="The marker is paused for now."></div>
+          <div><label for="s-dev">Marks per device per day</label><input id="s-dev" name="perDevice" type="number" min="0" max="1000" step="1"></div>
+          <div><label for="s-ip">Marks per IP per day</label><input id="s-ip" name="perIp" type="number" min="0" max="10000" step="1"></div>
+          <div><label for="s-cap">Monthly cap (US$)</label><input id="s-cap" name="monthlyCap" type="number" min="0" max="10000" step="0.01"></div>
+          <div><label for="s-model">Model</label><select id="s-model" name="model"></select></div>
+          <div class="wide"><label class="saq-check"><input type="checkbox" name="ownQuestion"> Own questions allowed</label></div>
+          <div class="wide"><label for="s-code">New resident code</label><input id="s-code" name="residentCode" type="text" autocomplete="off" placeholder="Leave empty to keep the current code"><p class="saq-small" id="code-state"></p></div>
+          <div class="wide saq-row" style="margin:0"><button class="saq-btn" type="submit">Save</button><span class="saq-small" id="saved"></span></div>
+        </form>
+      </div>
+      <div class="saq-card"><h2>Tokens this month</h2><table class="saq-table" id="tokens"></table></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="ntf-footer"><div class="ntf-footer-inner"><div class="ntf-footer-identity"><span class="ntf-copyright">© 2026 NTF Anaesthesia. All rights reserved unless otherwise stated.</span></div></div></footer>
+</body>
+</html>

@@ -26,3 +26,13 @@ test('folder without a slash redirects; missing files 404; unknown hosts 404', a
 test('only GET and HEAD', async () => {
   assert.equal((await get('https://exams.anantf.com/', 'POST')).status, 405);
 });
+
+test('/api/ is answered before the GET/HEAD rule, only on known hosts', async () => {
+  assert.equal((await get('https://exams.anantf.com/api/saq/nope', 'POST')).status, 404);
+  assert.equal((await get('https://exams.anantf.com/api/saq/status', 'PUT')).status, 405);
+  // no database bound here: the marker says it is not set up, and the pages still work
+  assert.equal((await get('https://exams.anantf.com/api/saq/status')).status, 503);
+  assert.equal((await get('https://x.workers.dev/api/saq/status')).status, 404);
+  assert.equal((await get('https://exams.anantf.com/')).status, 200);
+  assert.equal((await get('https://exams.anantf.com/apix', 'POST')).status, 405);
+});
